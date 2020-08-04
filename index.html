@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Warmth</title>
+		<style type="text/css">
+:root {
+	--black: rgb(0,0,0);
+	--k1900: rgb(255, 147, 41);
+	--k2600: rgb(255, 197, 143);
+	--k2850: rgb(255, 214, 170);
+	--k3200: rgb(255, 241, 224);
+	--k5200: rgb(255, 250, 244);
+	--k5400: rgb(255, 255, 251);
+	--k6000: rgb(255, 255, 255);
+	--k7000: rgb(201, 226, 255);
+	--k20000: rgb(64, 156, 255);
+	--sliderStart: rgb(255, 147, 41);
+	--sliderEnd: rgb(64, 156, 255);
+	--circleColor: rgb(255, 250, 244);
+	--textColor: rgba(0,0,0,.6);
+	--darkText: rgba(0,0,0,.6);
+	--lightText: rgba(220,220,220,.6);
+	--pageBackground: rgb(255, 241, 224);
+}
+* {font-family: sans-serif; color:var(--textColor)}
+*:focus {outline: none;}
+body {background: var(--pageBackground);}
+input[type='range'] {border-left:8px solid var(--k1900);border-right: 8px solid var(--k20000);}
+#doughnut {
+    border: 100px solid #f00;
+    border-radius: 100%;
+    height: 70%;
+    width: 35%;
+    border-color: var(--circleColor);
+    position: absolute;
+    top: 0;
+    left: 25%;
+}
+/*
+/*Chrome */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+      overflow: hidden;
+      width: 80px;
+      -webkit-appearance: none;
+      background-color: var(--sliderEnd);
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      /*-webkit-appearance: none;*/
+      /*color: #13bba4;*/
+      /*margin-top: -1px;*/
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
+      cursor: ew-resize;
+      background: #434343;
+      box-shadow: -80px 0 0 80px var(--sliderStart);
+    }
+
+}
+
+/* FF */
+input[type="range"]::-moz-range-progress { background-color: var(--sliderStart); }
+input[type="range"]::-moz-range-track { background-color: var(--sliderEnd); }
+/* IE */
+input[type="range"]::-ms-fill-lower { background-color: var(--sliderStart); }
+input[type="range"]::-ms-fill-upper { background-color: var(--sliderEnd); }
+		</style>
+	</head>
+	<body id="colorBody" class="">
+		<div>
+			<form>
+				<input type="range" id="colors" name="colors" min="0" max="8" steps="1" list="colorList"/>
+				<datalist id="colorList">
+					<option>Candle, 1900k</option>
+					<option>Tungsten40W, 2600k</option>
+					<option>Tungsten100W, 2850k</option>
+					<option>Halogen, 3200k</option>
+					<option>CarbonArc, 5200k</option>
+					<option>HighNoonSun, 5400k</option>
+					<option>DirectSunlight, 6000k</option>
+					<option>OvercastSky, 7000k</option>
+					<option>ClearBlueSky, 20000k</option>
+				</datalist>
+				<h3 id="colorLabel"></h3>
+				<input type="checkbox" name="doughnutMode" value="true" id="doughnutMode"/><label for="doughnutMode">Ring Mode</label>
+				<p style="width:200px">Use the slider to select a warmer or cooler light, then leave this window open to whatever size you would like on whatever monitor you would like to get a more color balanced on-camera presence.</p>
+			</form>
+		</div>
+		<div id="doughnut"></div>
+		<script type="text/javascript">
+window.doughnutMode = false
+document.getElementById("doughnutMode").addEventListener('change', (e)=>{
+	window.doughnutMode = e.target.checked
+	if(window.doughnutMode) {
+		document.documentElement.style.setProperty('--pageBackground', getComputedStyle(document.documentElement).getPropertyValue('--black'))
+		document.documentElement.style.setProperty('--textColor', getComputedStyle(document.documentElement).getPropertyValue('--lightText'))
+	}
+	else {
+		document.documentElement.style.setProperty('--pageBackground', getComputedStyle(document.getElementById('doughnut')).getPropertyValue('--circleColor'))
+		document.documentElement.style.setProperty('--textColor', getComputedStyle(document.documentElement).getPropertyValue('--darkText'))
+	}
+})
+document.getElementById("colors").addEventListener('change', (e)=>{
+	const colorVariables = ["k1900","k2600","k2850","k3200","k5200","k5400","k6000","k7000","k20000"]
+	const colorLabels = ["Candle, 1900k", "Tungsten 40W, 2600k", "Tungsten 100W, 2850k", "Halogen, 3200k", "Carbon Arc, 5200k", "High Noon Sun, 5400k", "Direct Sunlight, 6000k", "Overcast Sky, 7000k", "Clear Blue Sky, 20000k"]
+	const selectedTemperature = colorVariables[e.target.value]
+	const selectedLabel = colorLabels[e.target.value]
+	document.documentElement.style.setProperty('--sliderStart', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
+	document.getElementById('colorLabel').innerText = selectedLabel
+	if(!window.doughnutMode)
+		document.documentElement.style.setProperty('--pageBackground', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
+	document.documentElement.style.setProperty('--circleColor', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
+})
+window.onload = function() {
+	document.getElementById('colors').dispatchEvent(new Event('change'))
+}
+		</script>
+	</body>
+</html>
