@@ -111,7 +111,7 @@ document.getElementById("colors").addEventListener('input', (e)=>{
 	const colorLabels = ["Candle, 1900k", "Tungsten 40W, 2600k", "Tungsten 100W, 2850k", "Halogen, 3200k", "Carbon Arc, 5200k", "High Noon Sun, 5400k", "Direct Sunlight, 6000k", "Overcast Sky, 7000k", "Clear Blue Sky, 20000k"]
 	const selectedTemperature = colorVariables[e.target.value]
 	const selectedLabel = colorLabels[e.target.value]
-	document.documentElement.style.setProperty('--sliderStart', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
+// 	document.documentElement.style.setProperty('--sliderStart', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
 	document.getElementById('colorLabel').innerText = selectedLabel
 	if(!window.doughnutMode)
 		document.documentElement.style.setProperty('--pageBackground', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
