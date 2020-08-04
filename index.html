@@ -106,7 +106,7 @@ document.getElementById("doughnutMode").addEventListener('change', (e)=>{
 		document.documentElement.style.setProperty('--textColor', getComputedStyle(document.documentElement).getPropertyValue('--darkText'))
 	}
 })
-document.getElementById("colors").addEventListener('change', (e)=>{
+document.getElementById("colors").addEventListener('input', (e)=>{
 	const colorVariables = ["k1900","k2600","k2850","k3200","k5200","k5400","k6000","k7000","k20000"]
 	const colorLabels = ["Candle, 1900k", "Tungsten 40W, 2600k", "Tungsten 100W, 2850k", "Halogen, 3200k", "Carbon Arc, 5200k", "High Noon Sun, 5400k", "Direct Sunlight, 6000k", "Overcast Sky, 7000k", "Clear Blue Sky, 20000k"]
 	const selectedTemperature = colorVariables[e.target.value]
@@ -118,7 +118,7 @@ document.getElementById("colors").addEventListener('change', (e)=>{
 	document.documentElement.style.setProperty('--circleColor', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
 })
 window.onload = function() {
-	document.getElementById('colors').dispatchEvent(new Event('change'))
+	document.getElementById('colors').dispatchEvent(new Event('input'))
 }
 		</script>
 	</body>
