@@ -14,8 +14,8 @@
 	--k6000: rgb(255, 255, 255);
 	--k7000: rgb(201, 226, 255);
 	--k20000: rgb(64, 156, 255);
-	--sliderStart: rgb(255, 147, 41);
-	--sliderEnd: rgb(64, 156, 255);
+	--sliderStart: rgba(255, 147, 41,0.4);
+	--sliderEnd: rgba(64, 156, 255,0.4);
 	--circleColor: rgb(255, 250, 244);
 	--textColor: rgba(0,0,0,.6);
 	--darkText: rgba(0,0,0,.6);
@@ -111,7 +111,6 @@ document.getElementById("colors").addEventListener('input', (e)=>{
 	const colorLabels = ["Candle, 1900k", "Tungsten 40W, 2600k", "Tungsten 100W, 2850k", "Halogen, 3200k", "Carbon Arc, 5200k", "High Noon Sun, 5400k", "Direct Sunlight, 6000k", "Overcast Sky, 7000k", "Clear Blue Sky, 20000k"]
 	const selectedTemperature = colorVariables[e.target.value]
 	const selectedLabel = colorLabels[e.target.value]
-// 	document.documentElement.style.setProperty('--sliderStart', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
 	document.getElementById('colorLabel').innerText = selectedLabel
 	if(!window.doughnutMode)
 		document.documentElement.style.setProperty('--pageBackground', getComputedStyle(document.documentElement).getPropertyValue('--'+selectedTemperature))
